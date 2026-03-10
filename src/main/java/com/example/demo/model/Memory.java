@@ -4,7 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Memory {
 	@Size(min=1)
 	private String text;
 	
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "employee_id")//外部キーを持つ側に設定する
 	private Employee employee;
 }

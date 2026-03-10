@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -24,6 +27,6 @@ public class Employee {
 	@Size(min=1)
 	private String name;
 	
-	@OneToOne
-	private Memory memory;
+	@OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)//カスケードで紐づくリレーションも含めて削除できる
+	private List<Memory> memory;
 }
