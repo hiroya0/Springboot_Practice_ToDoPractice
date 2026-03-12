@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>登録フォーム</title>
+</head>
+<body>
+	<h1>登録フォーム</h1><!--memory-employee-nameで記述する。
+		理由はmemoryとemployeeを両方書くため、そしてnameはemployeeにあるため-->
+
+	<form th:action="@{/process}" th:object="${memory}" method="post">
+		<input type="hidden" th:field="*{id}" >
+		<table>
+			<tr>
+				<td><label>社員名：</label></td>
+				<td><input type="text" th:field="*{employee.name}" /></td>
+			</tr>
+			<div th:errors="*{employee.name}"></div>
+			<tr>
+				<td><label>一言：</label></td>
+				<td><input type="text" th:field="*{text}" /></td>
+			<div th:errors="*{text}"></div>
+			</tr>
+		</table>
+
+		<button type="submit">登録</button>
+
+	</form>
+<!---3/12はエラーの解決に努める-->
+</body>
+</html>

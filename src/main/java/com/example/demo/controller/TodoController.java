@@ -24,8 +24,7 @@ public class TodoController {
 	
 	@GetMapping("/")
 	public String snowform(Model model) {
-		model.addAttribute("employees", employeerepository.findAll());
-		model.addAttribute("memories",memoryrepository.findAll());
+		model.addAttribute("memories", memoryrepository.findAll());
 	return "index";
 	}
 	
@@ -34,11 +33,12 @@ public class TodoController {
 		return "form";
 	}
 	
-	@PostMapping("/")
-	public String process(@Validated Memory memory,Employee employee, BindingResult result) {
+	@PostMapping("/process")
+	public String process(@Validated Memory memory,BindingResult result) {
 		if (result.hasErrors()) {
 			return "form";
 		}
+		Employee employee = memory.getEmployee();//ゲッターからemployeeを取り出す
 		
 		employeerepository.save(employee);//社員から保存
 		memory.setEmployee(employee);//社員とメモリー紐付け
@@ -49,7 +49,7 @@ public class TodoController {
 	
 	@GetMapping("/delete/{id}")
 	public String deletelist(@PathVariable Long id) {
-		employeerepository.deleteById(id);
+		memoryrepository.deleteById(id);
 		return "redirect:/";
 	}
 }
